@@ -13,28 +13,16 @@ class MainViewModel : ViewModel() {
     val state: LiveData<State>
         get() = _state
 
-//    private val _error = MutableLiveData<Boolean>()
-//    val error: LiveData<Boolean>
-//        get() = _error
-//
-//    private val _factorial = MutableLiveData<String>()
-//    val factorial: LiveData<String>
-//        get() = _factorial
-//
-//    private val _progress = MutableLiveData<Boolean>()
-//    val progress: LiveData<Boolean>
-//        get() = _progress
-
     fun calculate(value: String?) {
-        _state.value = State(isInProgress = true)
+        _state.value = Progress
         if (value.isNullOrBlank()) {
-            _state.value = State(isError = true)
+            _state.value = Error
             return
         }
         viewModelScope.launch {
             val number = value.toLong()
             delay(1000)
-            _state.value = State(factorial = number.toString())
+            _state.value = Result(number.toString())
         }
     }
 }
