@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         observeViewModel()
         binding.buttonCalculate.setOnClickListener {
             viewModel.calculate(binding.editTextNumber.text.toString())
+            binding.progressBarLoading.visibility = View.VISIBLE
+            binding.buttonCalculate.isEnabled = false
         }
     }
 
@@ -38,8 +40,8 @@ class MainActivity : AppCompatActivity() {
                 is Progress -> {
 
                 }
-                is Result -> {
-                    binding.textViewFactorial.text = it.factorial
+                is Factorial -> {
+                    binding.textViewFactorial.text = it.value
                 }
             }
         }
